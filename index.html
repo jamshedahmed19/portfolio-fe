@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Jamshed Ahmed | Senior Frontend Engineer</title>
+    <meta name="description" content="Portfolio of Jamshed Ahmed, an experienced Frontend Engineer specializing in React, Next.js, and high-performance web applications." />
+    
+    <!-- Remix Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+    
+    <!-- Google Fonts: Syne, Figtree (replaced Manrope), Space Grotesk -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@300;400;500;600&family=Syne:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              background: '#050505',
+              surface: '#0a0a0a',
+              primary: '#e1e1e1',
+              secondary: '#888888',
+              accent: '#333333',
+              border: '#1f1f1f',
+            },
+            fontFamily: {
+              sans: ['Figtree', 'sans-serif'],
+              display: ['Syne', 'sans-serif'],
+              mono: ['Space Grotesk', 'monospace'],
+            },
+            animation: {
+              'marquee': 'marquee 40s linear infinite',
+              'marquee-reverse': 'marquee-reverse 40s linear infinite',
+              'noise': 'noise 0.2s infinite',
+            },
+            keyframes: {
+              marquee: {
+                '0%': { transform: 'translateX(0%)' },
+                '100%': { transform: 'translateX(-50%)' },
+              },
+              marquee-reverse: {
+                '0%': { transform: 'translateX(-50%)' },
+                '100%': { transform: 'translateX(0%)' },
+              },
+              noise: {
+                '0%': { transform: 'translate(0,0)' },
+                '10%': { transform: 'translate(-5%,-5%)' },
+                '20%': { transform: 'translate(-10%,5%)' },
+                '30%': { transform: 'translate(5%,-10%)' },
+                '40%': { transform: 'translate(-5%,15%)' },
+                '50%': { transform: 'translate(-10%,5%)' },
+                '60%': { transform: 'translate(15%,0)' },
+                '70%': { transform: 'translate(0,10%)' },
+                '80%': { transform: 'translate(-15%,0)' },
+                '90%': { transform: 'translate(10%,5%)' },
+                '100%': { transform: 'translate(5%,0)' }
+              }
+            }
+          }
+        }
+      }
+    </script>
+    <style>
+      html {
+        height: auto;
+        min-height: 100%;
+      }
+      
+      body {
+        margin: 0;
+        padding: 0;
+        background-color: #050505;
+        color: #e1e1e1;
+        font-family: 'Figtree', sans-serif;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+      }
+      
+      /* Lenis Recommended CSS */
+      html.lenis, html.lenis body {
+        height: auto;
+      }
+      
+      .lenis.lenis-smooth {
+        scroll-behavior: auto !important;
+      }
+      
+      .lenis.lenis-smooth [data-lenis-prevent] {
+        overscroll-behavior: contain;
+      }
+      
+      .lenis.lenis-stopped {
+        overflow: hidden;
+      }
+      
+      .lenis.lenis-scrolling iframe {
+        pointer-events: none;
+      }
+
+      ::selection {
+        background-color: #ffffff;
+        color: #000000;
+      }
+
+      .text-stroke {
+        -webkit-text-stroke: 2px rgba(255, 255, 255, 0.3);
+        color: transparent;
+      }
+      
+      /* Hide scrollbar for clean look */
+      ::-webkit-scrollbar {
+        width: 0px;
+        background: transparent;
+      }
+      
+      /* Cursor reset */
+      a, button {
+        cursor: none;
+      }
+      
+      /* Utility for large text clamping */
+      .clamp-text-hero {
+        font-size: clamp(3rem, 15vw, 16rem);
+      }
+
+      /* 3D Transform Utilities */
+      .preserve-3d {
+        transform-style: preserve-3d;
+      }
+      
+      .backface-hidden {
+        backface-visibility: hidden;
+      }
+      
+      .rotate-y-180 {
+        transform: rotateY(180deg);
+      }
+      
+      .perspective-1000 {
+        perspective: 1000px;
+      }
+    </style>
+  <script type="importmap">
+{
+  "imports": {
+    "react-dom/": "https://aistudiocdn.com/react-dom@^19.2.0/",
+    "react/": "https://aistudiocdn.com/react@^19.2.0/",
+    "react": "https://aistudiocdn.com/react@^19.2.0",
+    "lucide-react": "https://aistudiocdn.com/lucide-react@^0.554.0",
+    "framer-motion": "https://aistudiocdn.com/framer-motion@^12.23.24",
+    "gsap": "https://esm.sh/gsap@3.12.5",
+    "gsap/ScrollTrigger": "https://esm.sh/gsap@3.12.5/ScrollTrigger",
+    "gsap/": "https://aistudiocdn.com/gsap@^3.13.0/"
+  }
+}
+</script>
+<link rel="stylesheet" href="/index.css">
+</head>
+  <body>
+    <div id="root"></div>
+  <script type="module" src="/index.tsx"></script>
+</body>
+</html>
