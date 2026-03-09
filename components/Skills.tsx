@@ -4,34 +4,31 @@ import { TechItem } from '../types';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { 
-  Atom, 
-  Zap, 
-  Box, 
-  Layers, 
-  FileCode, 
-  Code, 
-  Wind, 
-  BarChart3, 
-  Network, 
-  Flame,
-  Layout,
-  Mountain
-} from 'lucide-react';
+  SiReact, 
+  SiNextdotjs, 
+  SiVuedotjs, 
+  SiNuxt, 
+  SiTypescript, 
+  SiJavascript, 
+  SiTailwindcss, 
+  SiChartdotjs, 
+  SiGraphql, 
+  SiFirebase 
+} from 'react-icons/si';
+import { Code } from 'lucide-react';
 
 // Map icon keys to components
 const IconMap: Record<string, React.ElementType> = {
-  Atom, 
-  Zap, 
-  Box, 
-  Layers, 
-  FileCode, 
-  Code, 
-  Wind, 
-  BarChart3, 
-  Network, 
-  Flame,
-  Layout,
-  Mountain
+  Atom: SiReact, 
+  Zap: SiNextdotjs, 
+  Layout: SiVuedotjs, 
+  Mountain: SiNuxt, 
+  FileCode: SiTypescript, 
+  Code: SiJavascript, 
+  Wind: SiTailwindcss, 
+  BarChart3: SiChartdotjs, 
+  Network: SiGraphql, 
+  Flame: SiFirebase
 };
 
 const Skills: React.FC = () => {
@@ -151,7 +148,6 @@ const TechCard: React.FC<{ tech: TechItem }> = ({ tech }) => {
             <div className="relative z-10 transition-transform duration-500 group-hover:scale-110 group-hover:rotate-12">
                 <Icon 
                     size={48} 
-                    strokeWidth={1}
                     className="text-white/40 group-hover:text-white transition-colors duration-300"
                 />
             </div>
