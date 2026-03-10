@@ -5,22 +5,24 @@ import HangingBadge from './ui/HangingBadge';
 
 const Contact: React.FC = () => {
   return (
-    <footer id="contact" className="min-h-screen flex flex-col justify-between px-6 md:px-12 py-12 md:py-20 relative bg-background overflow-hidden">
+    <footer id="contact" className="min-h-screen flex flex-col justify-between px-6 md:px-12 pt-12 md:pt-20 pb-6 relative bg-background overflow-hidden">
       
-      <div className="w-full border-b border-white/10 pb-8 mb-12 md:mb-0">
-         <span className="text-xs font-mono uppercase text-secondary border border-white/10 rounded-full px-3 py-1">
+      {/* Header with border-b */}
+      <div className="w-full border-b border-white/10 pb-8 relative z-20">
+         <span className="text-xs font-mono uppercase text-secondary border border-white/10 rounded-full px-3 py-1 bg-background">
             04 / Contact
          </span>
       </div>
 
-      <div className="flex flex-col items-center justify-center flex-grow py-20 relative z-10">
+      {/* Badge Container - Starts right below the border */}
+      <div className="flex flex-col items-center flex-grow relative z-10 w-full">
         
-        {/* Interactive Badge replacing static text */}
-        <div className="mb-12 relative w-full flex justify-center h-[500px] items-center">
+        {/* Interactive Badge */}
+        <div className="relative w-full flex justify-center h-[650px]">
             <HangingBadge />
         </div>
         
-        <div className="mt-8 z-20">
+        <div className="mt-4 z-20">
             <Magnetic>
                 <a 
                 href="mailto:jamsheda4ahmed786@gmail.com" 
@@ -32,7 +34,7 @@ const Contact: React.FC = () => {
         </div>
       </div>
 
-      <div className="flex flex-col md:flex-row justify-between items-end gap-10 relative z-10">
+      <div className="flex flex-col md:flex-row justify-between items-end gap-10 relative z-10 mt-10">
         <div className="flex gap-8">
           {SOCIAL_LINKS.map((link) => (
              <Magnetic key={link.platform} strength={0.5}>

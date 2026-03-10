@@ -19,29 +19,46 @@ const HangingBadge: React.FC = () => {
   // Use motion templates to bind SVG coordinates directly to motion values on the compositor
   // This prevents the "detachment" lag by avoiding React state renders for line position
   const x2 = useMotionTemplate`calc(50% + ${x}px)`;
-  const y2 = useMotionTemplate`calc(100px + ${y}px)`; // Offset by drag Y
+  const y2 = useMotionTemplate`calc(154px + ${y}px)`; // Offset by drag Y
   const cx = x2;
   const cy = y2;
 
   return (
-    <div className="relative flex flex-col items-center perspective-1000 z-50">
+    <div className="relative flex flex-col items-center perspective-1000 z-50 w-full h-full">
       
-      {/* Elastic String Visualization */}
-      {/* The SVG covers the area above the badge to render the string */}
-      <div className="absolute top-[-200px] left-1/2 -translate-x-1/2 -z-10 h-[300px] w-full pointer-events-none overflow-visible">
+      {/* Elastic Ribbon Visualization */}
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 -z-10 h-full w-full pointer-events-none overflow-visible">
          <svg className="w-full h-full overflow-visible">
-             {/* Dynamic string connecting anchor (top center) to badge clip */}
+             {/* Lanyard Border/Shadow */}
              <motion.line 
                 x1="50%" 
                 y1="0" 
                 x2={x2}
                 y2={y2}
-                stroke="rgba(255,255,255,0.3)" 
-                strokeWidth="2" 
-                strokeLinecap="round"
+                stroke="rgba(255,255,255,0.15)" 
+                strokeWidth="26" 
              />
-             {/* Connection point circle */}
-             <motion.circle cx={cx} cy={cy} r="3" fill="#e1e1e1" />
+             {/* Lanyard Main */}
+             <motion.line 
+                x1="50%" 
+                y1="0" 
+                x2={x2}
+                y2={y2}
+                stroke="#111111" 
+                strokeWidth="24" 
+             />
+             {/* Lanyard Inner Stripe */}
+             <motion.line 
+                x1="50%" 
+                y1="0" 
+                x2={x2}
+                y2={y2}
+                stroke="#333333" 
+                strokeWidth="4" 
+             />
+             {/* Top Connection point (Pin to the hr) */}
+             <circle cx="50%" cy="0" r="6" fill="#444" stroke="#222" strokeWidth="2" />
+             <circle cx="50%" cy="0" r="2" fill="#888" />
          </svg>
       </div>
 
@@ -53,13 +70,13 @@ const HangingBadge: React.FC = () => {
         dragElastic={0.15}
         whileDrag={{ cursor: "grabbing" }}
         onClick={() => setIsFlipped(!isFlipped)}
-        className="mt-[100px] relative preserve-3d" // 'mt' matches the string connection point
+        className="mt-[150px] relative preserve-3d" // 'mt' matches the string connection point
         animate={{ rotateY: isFlipped ? 180 : 0 }}
         transition={{ type: "spring", stiffness: 260, damping: 20 }}
       >
         {/* Metal Clip Top - Removed backface-hidden so it shows on both sides */}
-        <div className="absolute -top-4 left-1/2 -translate-x-1/2 w-8 h-8 bg-gradient-to-b from-gray-200 to-gray-500 rounded-sm z-20 shadow-md flex items-center justify-center">
-            <div className="w-6 h-1 bg-black/40 rounded-full"></div>
+        <div className="absolute -top-4 left-1/2 -translate-x-1/2 w-10 h-10 bg-gradient-to-b from-gray-300 to-gray-600 rounded-sm z-20 shadow-xl flex items-center justify-center border border-white/20">
+            <div className="w-6 h-1.5 bg-black/60 rounded-full shadow-inner"></div>
         </div>
 
         {/* --- FRONT SIDE --- */}
