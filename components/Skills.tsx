@@ -35,6 +35,8 @@ const Skills: React.FC = () => {
   const marqueeRef = useRef<HTMLDivElement>(null);
   const row1Ref = useRef<HTMLDivElement>(null);
   const row2Ref = useRef<HTMLDivElement>(null);
+  const speedRef = useRef(0.05);
+  const targetSpeedRef = useRef(0.05);
 
   // Duplicate items for seamless loop
   const topRow = [...TECH_ITEMS, ...TECH_ITEMS, ...TECH_ITEMS];
@@ -43,6 +45,7 @@ const Skills: React.FC = () => {
   useEffect(() => {
     let xPercent = 0;
     let direction = -1;
+    let rafId: number;
 
     const animate = () => {
       if (xPercent <= -100) {
@@ -56,12 +59,15 @@ const Skills: React.FC = () => {
       gsap.set(row1Ref.current, { xPercent: xPercent });
       gsap.set(row2Ref.current, { xPercent: -xPercent - 100 }); // Reverse direction
       
-      xPercent += 0.05 * direction;
-      requestAnimationFrame(animate);
+      // Smoothly interpolate speed
+      speedRef.current += (targetSpeedRef.current - speedRef.current) * 0.1;
+      
+      xPercent += speedRef.current * direction;
+      rafId = requestAnimationFrame(animate);
     };
     
     // Start base animation loop
-    const rafId = requestAnimationFrame(animate);
+    rafId = requestAnimationFrame(animate);
 
     // Velocity-based skew and speed adjustment
     const ctx = gsap.context(() => {
@@ -72,7 +78,6 @@ const Skills: React.FC = () => {
             onUpdate: (self) => {
                 const velocity = self.getVelocity();
                 const skew = velocity / 200; // Adjust sensitivity
-                const speedScale = 1 + Math.abs(velocity / 1000); // Speed up on scroll
 
                 // Apply skew to container
                 gsap.to([row1Ref.current, row2Ref.current], {
@@ -80,9 +85,6 @@ const Skills: React.FC = () => {
                     duration: 0.2,
                     ease: "power3.out"
                 });
-                
-                // Note: Changing the actual animation speed frame-by-frame is complex in this setup, 
-                // so we rely on the visual skew for the physics feeling.
             }
         });
     }, marqueeRef);
@@ -109,13 +111,21 @@ const Skills: React.FC = () => {
         </h2>
       </div>
 
-      <div ref={marqueeRef} className="flex flex-col gap-8 rotate-[-2deg] scale-[1.05] py-10">
+      <div 
+        ref={marqueeRef} 
+        className="flex flex-col gap-8 rotate-[-2deg] scale-[1.05] py-10"
+      >
         
         {/* Row 1 */}
         <div className="relative flex overflow-hidden w-full">
           <div ref={row1Ref} className="flex items-center gap-6 pl-6 w-max will-change-transform">
             {topRow.map((tech, i) => (
-              <TechCard key={`${tech.name}-top-${i}`} tech={tech} />
+              <TechCard 
+                key={`${tech.name}-top-${i}`} 
+                tech={tech} 
+                onHoverStart={() => { targetSpeedRef.current = 0; }}
+                onHoverEnd={() => { targetSpeedRef.current = 0.05; }}
+              />
             ))}
           </div>
         </div>
@@ -124,7 +134,12 @@ const Skills: React.FC = () => {
         <div className="relative flex overflow-hidden w-full">
           <div ref={row2Ref} className="flex items-center gap-6 pl-6 w-max will-change-transform">
             {bottomRow.map((tech, i) => (
-              <TechCard key={`${tech.name}-bottom-${i}`} tech={tech} />
+              <TechCard 
+                key={`${tech.name}-bottom-${i}`} 
+                tech={tech} 
+                onHoverStart={() => { targetSpeedRef.current = 0; }}
+                onHoverEnd={() => { targetSpeedRef.current = 0.05; }}
+              />
             ))}
           </div>
         </div>
@@ -133,11 +148,15 @@ const Skills: React.FC = () => {
   );
 };
 
-const TechCard: React.FC<{ tech: TechItem }> = ({ tech }) => {
+const TechCard: React.FC<{ tech: TechItem, onHoverStart?: () => void, onHoverEnd?: () => void }> = ({ tech, onHoverStart, onHoverEnd }) => {
     const Icon = IconMap[tech.icon] || Code; // Fallback to Code icon
 
     return (
-        <div className="group relative w-32 h-32 md:w-48 md:h-48 flex-shrink-0 bg-white/[0.03] border border-white/5 rounded-2xl flex items-center justify-center transition-all duration-500 hover:border-white/20 hover:bg-white/[0.08] hover:scale-105 overflow-hidden">
+        <div 
+          className="group relative w-32 h-32 md:w-48 md:h-48 flex-shrink-0 bg-white/[0.03] border border-white/5 rounded-2xl flex items-center justify-center transition-all duration-500 hover:border-white/20 hover:bg-white/[0.08] hover:scale-105 overflow-hidden"
+          onMouseEnter={onHoverStart}
+          onMouseLeave={onHoverEnd}
+        >
             
             {/* Grid Pattern in Card Background */}
             <div className="absolute inset-0 opacity-[0.05] group-hover:opacity-[0.1] transition-opacity duration-500"

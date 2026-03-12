@@ -2,6 +2,48 @@ import React, { useEffect, useRef } from 'react';
 import Magnetic from './ui/Magnetic';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { motion } from 'framer-motion';
+
+const InteractiveLetter = ({ char, index, isStroke }: { char: string, index: number, isStroke: boolean }) => {
+  return (
+    <motion.span
+      className={`inline-block cursor-default ${isStroke ? 'text-stroke' : 'text-white'}`}
+      whileHover={{
+        scale: 1.1,
+        y: -20,
+        rotate: (index % 2 === 0 ? 1 : -1) * (Math.random() * 10 + 5),
+        color: isStroke ? 'rgba(16, 185, 129, 0.1)' : '#10b981',
+        textShadow: isStroke ? '0 0 20px rgba(16, 185, 129, 0.5)' : '0 10px 30px rgba(16, 185, 129, 0.6)',
+        WebkitTextStrokeColor: isStroke ? '#10b981' : undefined,
+        zIndex: 50,
+      }}
+      whileTap={{
+        scale: 0.9,
+        y: 0,
+        rotate: 0,
+      }}
+      transition={{ type: 'spring', stiffness: 300, damping: 12 }}
+      style={{ 
+        originX: 0.5, 
+        originY: 0.5, 
+        position: 'relative',
+        color: isStroke ? '#000000' : undefined
+      }}
+    >
+      {char}
+    </motion.span>
+  );
+};
+
+const InteractiveText = ({ text, isStroke = false }: { text: string, isStroke?: boolean }) => {
+  return (
+    <span className="flex">
+      {text.split('').map((char, i) => (
+        <InteractiveLetter key={i} char={char} index={i} isStroke={isStroke} />
+      ))}
+    </span>
+  );
+};
 
 const Hero: React.FC = () => {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -79,7 +121,7 @@ const Hero: React.FC = () => {
       <div className="container mx-auto relative z-10 h-full flex flex-col justify-center">
         
         {/* Top Meta Data */}
-        <div ref={metaRef} className="absolute top-6 right-0 md:top-12 md:right-0 flex flex-col items-end gap-2 text-right z-20 opacity-1 pr-4 md:pr-0">
+        <div ref={metaRef} className="absolute top-24 right-0 md:top-32 md:right-0 flex flex-col items-end gap-2 text-right z-20 opacity-1 pr-4 md:pr-0">
           <div className="flex items-center gap-2">
              <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse shadow-[0_0_10px_rgba(16,185,129,0.5)]"></div>
              <p className="text-white font-mono text-[10px] md:text-xs uppercase tracking-[0.2em]">Available for Freelance</p>
@@ -91,13 +133,13 @@ const Hero: React.FC = () => {
         <div className="relative z-0 flex flex-col justify-center w-full mix-blend-exclusion select-none">
           <div ref={wrapperRef1} className="overflow-hidden">
             <h1 ref={textRef1} className="clamp-text-hero leading-[0.8] font-display font-extrabold text-white tracking-tighter">
-              JAMSHED
+              <InteractiveText text="JAMSHED" />
             </h1>
           </div>
           
           <div ref={wrapperRef2} className="overflow-hidden self-end mt-[-2vw] md:mt-[-3vw]">
-             <h1 ref={textRef2} className="clamp-text-hero leading-[0.8] font-display font-extrabold text-transparent text-stroke tracking-tighter text-right">
-              AHMED
+             <h1 ref={textRef2} className="clamp-text-hero leading-[0.8] font-display font-extrabold tracking-tighter text-right">
+              <InteractiveText text="AHMED" isStroke={true} />
             </h1>
           </div>
         </div>
