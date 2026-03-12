@@ -8,13 +8,13 @@ const InteractiveLetter = ({ char, index, isStroke }: { char: string, index: num
   return (
     <motion.span
       className={`inline-block cursor-default ${isStroke ? 'text-stroke' : 'text-white'}`}
+      data-text={char}
       whileHover={{
         scale: 1.1,
         y: -20,
         rotate: (index % 2 === 0 ? 1 : -1) * (Math.random() * 10 + 5),
-        color: isStroke ? 'rgba(16, 185, 129, 0.1)' : '#10b981',
-        textShadow: isStroke ? '0 0 20px rgba(16, 185, 129, 0.5)' : '0 10px 30px rgba(16, 185, 129, 0.6)',
-        WebkitTextStrokeColor: isStroke ? '#10b981' : undefined,
+        color: isStroke ? '#000000' : '#ffffff',
+        textShadow: isStroke ? undefined : '0 10px 30px rgba(255, 255, 255, 0.4)',
         zIndex: 50,
       }}
       whileTap={{
@@ -131,14 +131,14 @@ const Hero: React.FC = () => {
 
         {/* Main Typography */}
         <div className="relative z-0 flex flex-col justify-center w-full mix-blend-exclusion select-none">
-          <div ref={wrapperRef1} className="overflow-hidden">
-            <h1 ref={textRef1} className="clamp-text-hero leading-[0.8] font-display font-extrabold text-white tracking-tighter">
+          <div ref={wrapperRef1} className="overflow-hidden relative z-10">
+            <h1 ref={textRef1} className="clamp-text-hero leading-[0.8] font-display font-extrabold text-white tracking-tight">
               <InteractiveText text="JAMSHED" />
             </h1>
           </div>
           
-          <div ref={wrapperRef2} className="overflow-hidden self-end mt-[-2vw] md:mt-[-3vw]">
-             <h1 ref={textRef2} className="clamp-text-hero leading-[0.8] font-display font-extrabold tracking-tighter text-right">
+          <div ref={wrapperRef2} className="overflow-hidden self-end mt-[-2vw] md:mt-[-3vw] relative z-0">
+             <h1 ref={textRef2} className="clamp-text-hero leading-[0.8] font-display font-extrabold text-right tracking-normal">
               <InteractiveText text="AHMED" isStroke={true} />
             </h1>
           </div>
