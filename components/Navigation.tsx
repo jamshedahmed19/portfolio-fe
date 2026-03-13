@@ -18,6 +18,15 @@ const Navigation: React.FC = () => {
     e.preventDefault();
     setActive(href);
     
+    // @ts-ignore
+    if (typeof window !== 'undefined' && window.gtag) {
+      // @ts-ignore
+      window.gtag('event', 'click', {
+        'event_category': 'navigation',
+        'event_label': `Nav: ${href}`
+      });
+    }
+
     const targetElement = document.querySelector(href);
     
     // @ts-ignore
@@ -82,6 +91,16 @@ const Navigation: React.FC = () => {
             <a 
             href="/resume.pdf" 
             target="_blank"
+            onClick={() => {
+              // @ts-ignore
+              if (typeof window !== 'undefined' && window.gtag) {
+                // @ts-ignore
+                window.gtag('event', 'download', {
+                  'event_category': 'resume',
+                  'event_label': 'Resume Download'
+                });
+              }
+            }}
             className="px-6 py-2.5 text-[10px] md:text-xs uppercase tracking-widest font-bold text-black bg-white rounded-full hover:bg-gray-200 transition-all hover:scale-105 active:scale-95 block relative overflow-hidden group/btn"
             >
                 <span className="relative z-10">Resume</span>

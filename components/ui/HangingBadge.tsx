@@ -69,7 +69,17 @@ const HangingBadge: React.FC = () => {
         dragConstraints={{ top: 0, left: 0, right: 0, bottom: 0 }}
         dragElastic={0.15}
         whileDrag={{ cursor: "grabbing" }}
-        onClick={() => setIsFlipped(!isFlipped)}
+        onClick={() => {
+          setIsFlipped(!isFlipped);
+          // @ts-ignore
+          if (typeof window !== 'undefined' && window.gtag) {
+            // @ts-ignore
+            window.gtag('event', 'flip', {
+              'event_category': 'card',
+              'event_label': 'Card Flip'
+            });
+          }
+        }}
         className="mt-[150px] relative preserve-3d" // 'mt' matches the string connection point
         animate={{ rotateY: isFlipped ? 180 : 0 }}
         transition={{ type: "spring", stiffness: 260, damping: 20 }}
@@ -150,13 +160,37 @@ const HangingBadge: React.FC = () => {
             </p>
 
             <div className="flex gap-4 w-full justify-center">
-                 <a href="mailto:jamsheda4ahmed786@gmail.com" className="w-10 h-10 rounded-full bg-black/5 flex items-center justify-center hover:bg-black hover:text-white transition-colors cursor-pointer">
+                 <a href="mailto:jamsheda4ahmed786@gmail.com" 
+                    onClick={() => {
+                      // @ts-ignore
+                      if (typeof window !== 'undefined' && window.gtag) {
+                        // @ts-ignore
+                        window.gtag('event', 'click', { 'event_category': 'social', 'event_label': 'Email' });
+                      }
+                    }}
+                    className="w-10 h-10 rounded-full bg-black/5 flex items-center justify-center hover:bg-black hover:text-white transition-colors cursor-pointer">
                     <Mail size={16} />
                  </a>
-                 <a href="https://linkedin.com/in/jamshedahmed19" target="_blank" className="w-10 h-10 rounded-full bg-black/5 flex items-center justify-center hover:bg-[#0077b5] hover:text-white transition-colors cursor-pointer">
+                 <a href="https://linkedin.com/in/jamshedahmed19" target="_blank" 
+                    onClick={() => {
+                      // @ts-ignore
+                      if (typeof window !== 'undefined' && window.gtag) {
+                        // @ts-ignore
+                        window.gtag('event', 'click', { 'event_category': 'social', 'event_label': 'LinkedIn' });
+                      }
+                    }}
+                    className="w-10 h-10 rounded-full bg-black/5 flex items-center justify-center hover:bg-[#0077b5] hover:text-white transition-colors cursor-pointer">
                     <Linkedin size={16} />
                  </a>
-                 <a href="tel:+92318901744" className="w-10 h-10 rounded-full bg-black/5 flex items-center justify-center hover:bg-black hover:text-white transition-colors cursor-pointer">
+                 <a href="tel:+92318901744" 
+                    onClick={() => {
+                      // @ts-ignore
+                      if (typeof window !== 'undefined' && window.gtag) {
+                        // @ts-ignore
+                        window.gtag('event', 'click', { 'event_category': 'social', 'event_label': 'Phone' });
+                      }
+                    }}
+                    className="w-10 h-10 rounded-full bg-black/5 flex items-center justify-center hover:bg-black hover:text-white transition-colors cursor-pointer">
                     <Smartphone size={16} />
                  </a>
             </div>

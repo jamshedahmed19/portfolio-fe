@@ -98,6 +98,15 @@ const Hero: React.FC = () => {
   }, []);
 
   const handleScroll = () => {
+    // @ts-ignore
+    if (typeof window !== 'undefined' && window.gtag) {
+      // @ts-ignore
+      window.gtag('event', 'click', {
+        'event_category': 'navigation',
+        'event_label': 'Scroll Down (Hero)'
+      });
+    }
+
     const aboutSection = document.getElementById('about');
     // @ts-ignore
     if (window.lenis && aboutSection) {

@@ -26,6 +26,13 @@ const Contact: React.FC = () => {
             <Magnetic>
                 <a 
                 href="mailto:jamsheda4ahmed786@gmail.com" 
+                onClick={() => {
+                  // @ts-ignore
+                  if (typeof window !== 'undefined' && window.gtag) {
+                    // @ts-ignore
+                    window.gtag('event', 'click', { 'event_category': 'social', 'event_label': 'Email (Footer)' });
+                  }
+                }}
                 className="px-8 py-4 border border-white/20 rounded-full text-white font-mono uppercase text-xs tracking-wider hover:bg-white hover:text-black transition-colors duration-300 inline-block backdrop-blur-sm bg-black/20"
                 >
                 jamsheda4ahmed786@gmail.com
@@ -42,6 +49,13 @@ const Contact: React.FC = () => {
                 href={link.url}
                 target="_blank"
                 rel="noopener noreferrer"
+                onClick={() => {
+                  // @ts-ignore
+                  if (typeof window !== 'undefined' && window.gtag) {
+                    // @ts-ignore
+                    window.gtag('event', 'click', { 'event_category': 'social', 'event_label': `Social: ${link.platform}` });
+                  }
+                }}
                 className="text-secondary hover:text-white transition-colors text-xs uppercase font-mono tracking-wider flex items-center gap-2"
                 >
                     <i className={link.iconClass}></i>
